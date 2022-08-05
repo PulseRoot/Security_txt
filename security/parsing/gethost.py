@@ -1,29 +1,18 @@
-import pymysql
-
-# 클라우드 DB에 접속. root 계정 이외의 계정을 생성
-
-db = pymysql.connect(
-    host='175.45.195.194',
-    port=3306,
-    user='dong',
-    password='os123456',
-    db='zabbix',
-    charset='utf8'
-)
-
-cursors = db.cursor()
+import os
 
 def hostlists(id):
-    ID = id #리액트에서 로그인했을 경우에 username 정보를 넣어야 함
+    ID = id
 
-    param = (ID)
-    sql = """select host from autoreg_host where host_metadata = (%s);"""
-    cursors.execute(sql, param)
-    select = list(cursors.fetchall())
-    db.commit()
-    result = select
+    file_list = os.listdir('C:/Users/user/Desktop/test')
+    serverlist = []
+    file_name =[]
+    for file in file_list:
+        if file.split("_")[0] == ID:
+            name = file.split("_")[1]
+            file_name.append(name)
+    
+    for name in file_name:
+        server = str(name).split(".")[0]
+        serverlist.append(server)
 
-    post_list = []
-    for i in range(len(result)):
-        post_list.append(result[i][0])
-    return post_list
+    print(serverlist)
