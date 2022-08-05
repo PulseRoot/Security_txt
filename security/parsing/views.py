@@ -6,19 +6,20 @@ from rest_framework import views
 from .serializers import *
 from .gethost import hostlists
 from .parsing import Parsing
+import json
 
 class viruslistView(APIView):
     def post(self, request):
-        json = []
+        data = []
         username = request.data
         hostlist = hostlists(username)
         for host in hostlist:
-            json.append({
+            data.append({
                 "hostname" : host,
                 "virus" : Parsing(username, host),
                 "virus_sum" : len(Parsing(username,host))
             })
-        
+        json_data = json.dumps(data)
         #serializer = ViruscountSerializer(json)
-
-        return Response(json)
+        #result = json.loads(json_data)
+        return Response(data)
