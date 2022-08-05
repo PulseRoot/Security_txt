@@ -8,18 +8,31 @@ from .gethost import hostlists
 from .parsing import Parsing
 import json
 
+#-----------------플랜A----------------------------------------------
+
 class viruslistView(APIView):
     def post(self, request):
-        data = []
+        
         username = request.data
-        hostlist = hostlists(username)
-        for host in hostlist:
-            data.append({
-                "hostname" : host,
-                "virus" : Parsing(username, host),
-                "virus_sum" : len(Parsing(username,host))
-            })
-        json_data = json.dumps(data)
-        #serializer = ViruscountSerializer(json)
-        #result = json.loads(json_data)
-        return Response(data)
+        serializer = ViruscountSerializer(username)
+
+        return Response(serializer.data)
+
+#-------------------------------------------------------------------
+
+
+
+#-----------------플랜B--------------------------------------------
+# class viruslistView(APIView):
+#     def post(self, request):
+#         data = []
+#         username = request.data
+#         hostlist = hostlists(username)
+#         for host in hostlist:
+#             data.append({
+#                 "hostname" : host,
+#                 "virus" : Parsing(username, host),
+#                 "virus_sum" : len(Parsing(username,host))
+#             })
+#         return Response(data)
+#-----------------------------------------------------------------------
