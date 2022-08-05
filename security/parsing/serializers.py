@@ -8,46 +8,43 @@ from .gethost import hostlists
 from .parsing import Parsing
 
 # 입력값을 받아 알고리즘을 사용하여 계산 후 결과 값 json으로 출력
-class ViruscountSerializer(serializers.Serializer):
-   hostname = serializers.SerializerMethodField(method_name='getHostname')
-   virus = serializers.SerializerMethodField(method_name='getVirusList')
-   virus_sum = serializers.SerializerMethodField(method_name='countVirus')
-
-   class Meta:
-      model = Gethost
-      fields = ('hostname','virus','virus_sum')
-
-   def getHostname(self, obj):
-      username = obj
-      viruslist = []
-      hostlist = hostlists(username)
-      # for i in range(len(hostlist)):
-      #    hostname = hostlist[i]
-      #    return hostname
-      return hostlist
-
-   def getVirusList(self, obj):
-      username = obj
-      viruslist = []
-      virusarray = []
-      hostlist = hostlists(username)
-      for i in range(len(hostlist)):
-         viruslist = Parsing(username, hostlist[i])
-         virusarray.append(viruslist)
-      return virusarray
-
-   def countVirus(self, obj):
-      username = obj
-      viruslist = []
-      countlist = []
-      hostlist = hostlists(username)
-      for i in range(len(hostlist)):
-         viruslist = Parsing(username, hostlist[i])
-         countlist.append(len(viruslist))
-      return countlist
-
 # class ViruscountSerializer(serializers.Serializer):
+#    hostname = serializers.SerializerMethodField(method_name='getHostname')
+#    virus = serializers.SerializerMethodField(method_name='getVirusList')
+#    virus_sum = serializers.SerializerMethodField(method_name='countVirus')
 
 #    class Meta:
 #       model = Gethost
-#       fields = ('username','virus','virus_sum')
+#       fields = ('hostname','virus','virus_sum')
+
+#    def getHostname(self, obj):
+#       username = obj
+#       viruslist = []
+#       hostlist = hostlists(username)
+#       return hostlist
+
+#    def getVirusList(self, obj):
+#       username = obj
+#       viruslist = []
+#       virusarray = []
+#       hostlist = hostlists(username)
+#       for i in range(len(hostlist)):
+#          viruslist = Parsing(username, hostlist[i])
+#          virusarray.append(viruslist)
+#       return virusarray
+
+#    def countVirus(self, obj):
+#       username = obj
+#       viruslist = []
+#       countlist = []
+#       hostlist = hostlists(username)
+#       for i in range(len(hostlist)):
+#          viruslist = Parsing(username, hostlist[i])
+#          countlist.append(len(viruslist))
+#       return countlist
+
+class ViruscountSerializer(serializers.Serializer):
+
+   class Meta:
+      model = Gethost
+      fields = ('username','virus','virus_sum')
