@@ -15,4 +15,4 @@ def hostlists(id):
         server = str(name).split(".")[0]
         serverlist.append(server)
 
-    print(serverlist)
+    return serverlist
